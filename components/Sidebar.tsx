@@ -1,21 +1,27 @@
 "use client";
-// import Logo from '@/assets/logo.svg';
 import links from "@/utils/links";
-// import Image from 'next/image';
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
+
 function Sidebar() {
   const pathname = usePathname();
 
   return (
     <aside className="py-4 px-8 bg-muted h-full">
-      <img
+      {/* 
+        Next.js Image component with file from public folder
+        - Files in public folder are served from root path (/)
+        - width and height are required for Next.js Image optimization
+        - These should match the actual SVG dimensions for best results
+      */}
+      <Image
         src="/logo.svg"
-        alt="logo"
+        alt="jobify logo"
         className="mx-auto"
-        width="164"
-        height="50"
+        width={164}
+        height={50}
       />
       <div className="flex flex-col mt-20 gap-y-4">
         {links.map((link) => {

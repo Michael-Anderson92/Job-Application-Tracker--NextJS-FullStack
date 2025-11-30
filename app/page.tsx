@@ -1,13 +1,12 @@
-// import Image from "next/image";
-// import Logo from "../assets/logo.svg";
-// import LandingImg from "../assets/main.svg";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+
 export default function Home() {
   return (
     <main>
       <header className="max-w-6xl mx-auto px-4 sm:px-8 py-6 ">
-        <img src="/logo.svg" alt="logo" width={164} height={50} />
+        <Image src="/logo.svg" alt="jobify logo" width={164} height={50} />
       </header>
       <section className="max-w-6xl mx-auto px-4 sm:px-8 h-screen -mt-20 grid lg:grid-cols-[1fr,400px] items-center">
         <div>
@@ -31,12 +30,12 @@ export default function Home() {
             <Link href="/add-job">Get Started</Link>
           </Button>
         </div>
-        <img
+        <Image
           src="/main.svg"
-          alt="landing"
-          className="hidden lg:block "
-          width="400"
-          height="400"
+          alt="landing illustration"
+          className="hidden lg:block"
+          width={400}
+          height={400}
         />
       </section>
     </main>

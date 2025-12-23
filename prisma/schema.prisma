@@ -1,15 +1,9 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// generator client {
-//   provider = "prisma-client-js"
-// }
-
-// datasource db {
-//   provider = "postgresql"
-//   url      = env("DATABASE_URL")
-// }
-
+// ============================================
+// JOB TRACKER SCHEMA - FINAL VERSION
+// ============================================
+// Last Updated: December 22, 2024
+// Database: PostgreSQL on Railway
+// ORM: Prisma
 
 generator client {
   provider = "prisma-client-js"
@@ -20,41 +14,166 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
-        
 
-model Task {
-  id String @id @default(uuid())
-  content String
-  createdAt DateTime @default(now())
-  completed Boolean @default(false)
-}
+// ============================================
+// JOB APPLICATIONS
+// ============================================
 
 model Job {
-  id        String      @id @default(uuid())
-  clerkId   String
+  id        String   @id @default(uuid())
+  clerkId   String   // User who owns this job application
+  
+  // Job Details
+  position  String   // Job title (e.g., "Senior Software Engineer")
+  company   String   // Company name
+  location  String   // Location (e.g., "San Francisco, CA" or "Remote")
+  jobUrl    String?  // Link to job posting
+  website   String?  // Company website URL
+  
+  // Status & Type
+  status    String   @default("applied")  // "applied", "screening", "interview", "offer", "rejected"
+  mode      String   // "full-time", "part-time", "contract", "remote", "hybrid"
+  
+  // Timeline
+  appliedDate   DateTime  @default(now())  // When you applied
+  lastContact   DateTime?  // Last communication with company
+  nextFollowUp  DateTime?  // When to follow up next
+  
+  // Compensation
+  salaryRange   String?  // e.g., "$100k-120k"
+  
+  // APPLICATION MATERIALS
+  resumeId        String?
+  resume          Resume?   @relation(fields: [resumeId], references: [id])
+  
+  coverLetterUrl  String?   // Cover letter file URL
+  
+  // Notes
+  notes         String?  @db.Text  // Long-form notes about the job
+  
+  // RELATIONSHIPS
+  interviews    Interview[]   // Array of interview rounds
+  contacts      JobContact[]  // Many-to-many with Contact through JobContact
+  
+  // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  position    String
-  company   String
-  location  String
-  status      String
-  mode     String
+  
+  // Indexes for fast queries
+  @@index([clerkId])
+  @@index([status])
+  @@index([company])
 }
 
-model Tour {
-  id String @id @default(uuid())
+// ============================================
+// RESUMES
+// ============================================
+
+model Resume {
+  id          String   @id @default(uuid())
+  clerkId     String   // User who owns this resume
+  
+  name        String   // Resume name (e.g., "Full-Stack Resume")
+  version     String   // Version number (e.g., "v2.1", "2024-12")
+  focusArea   String   // Focus area (e.g., "Frontend", "Full-Stack", "Backend")
+  fileUrl     String?  // URL to resume file (Vercel Blob, S3, etc.)
+  
+  // RELATIONSHIPS
+  jobs        Job[]    // Jobs that used this resume
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  
+  @@index([clerkId])
+}
+
+// ============================================
+// INTERVIEWS
+// ============================================
+
+model Interview {
+  id          String   @id @default(uuid())
+  
+  // RELATIONSHIPS
+  jobId       String
+  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  // Interview Details
+  round       String   // e.g., "Phone Screen", "Technical", "Behavioral", "Final"
+  date        DateTime // Interview date and time
+  duration    Int?     // Duration in minutes
+  interviewer String?  // Name of interviewer(s)
+  
+  notes       String?  @db.Text  // Interview notes
+  outcome     String?  // "passed", "waiting", "rejected"
+  
+  // Timestamps
+  createdAt   DateTime @default(now())
+  
+  @@index([jobId])
+}
+
+// ============================================
+// CONTACTS
+// ============================================
+
+model Contact {
+  id       String @id @default(uuid())
+  clerkId  String  // User who created this contact
+  
+  // Contact Information (all optional)
+  name     String?   // Contact name
+  email    String?   // Contact email
+  phone    String?   // Contact phone number
+  title    String?   // Job title (e.g., "Senior Recruiter", "Engineering Manager")
+  company  String?   // Company they work at
+  linkedin String?   // LinkedIn profile URL
+  
+  notes    String?  @db.Text  // Notes about this contact
+  
+  // RELATIONSHIPS
+  jobs     JobContact[]  // Jobs associated with this contact
+  
+  // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  city String
-  country String
-  title String
-  description String @db.Text
-  image String? @db.Text
-  stops Json
-  @@unique([city,country])
+  
+  @@index([clerkId])
+  @@index([email])
 }
+
+// ============================================
+// JOB-CONTACT LINK (Many-to-Many)
+// ============================================
+
+model JobContact {
+  id        String @id @default(uuid())
+  
+  // Foreign Keys
+  jobId     String
+  job       Job     @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
+  contactId String
+  contact   Contact @relation(fields: [contactId], references: [id], onDelete: Cascade)
+  
+  // Link Details
+  role      String?  // Contact's role in this job (e.g., "Recruiter", "Hiring Manager")
+  notes     String?  @db.Text  // Notes about this specific connection
+  
+  // Timestamps
+  createdAt DateTime @default(now())
+  
+  // Constraints
+  @@unique([jobId, contactId])  // Same contact can't be linked twice to same job
+  @@index([jobId])
+  @@index([contactId])
+}
+
+// ============================================
+// AI TOKENS (Optional - for future features)
+// ============================================
 
 model Token {
-  clerkId String @id
-  tokens Int @default (1000)
+  clerkId String @id   // User ID (primary key)
+  tokens  Int    @default(1000)  // AI credit balance
 }

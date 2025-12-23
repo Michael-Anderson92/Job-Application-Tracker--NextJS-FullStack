@@ -23,7 +23,7 @@ function CreateJobForm() {
       position: '',
       company: '',
       location: '',
-      status: JobStatus.Pending,
+      status: JobStatus.Applied,
       mode: JobMode.FullTime,
     },
   });

@@ -1,53 +1,52 @@
 /**
- * All Jobs Page Component
+ * Jobs Page (Server Component)
  *
- * This is a Next.js Server Component that pre-fetches job data on the server
- * before sending the page to the client. This improves initial page load performance.
- *
- * Key Features:
- * - Server-side data prefetching using React Query
- * - Hydration: Server data is "hydrated" into client-side React Query cache
- * - This prevents loading spinners on initial page load
- *
- * React Query Hydration Pattern:
- * 1. Prefetch data on server
- * 2. Dehydrate (serialize) the query cache
- * 3. Send dehydrated state to client
- * 4. Hydrate client-side React Query with server data
+ * This is a Server Component that prefetches job data and passes it to Client Components.
+ * It demonstrates the proper Next.js 14 pattern for SSR with React Query hydration.
  */
-import JobsList from "@/components/JobsList";
-import SearchForm from "@/components/SearchForm";
+
+import { JobsGrid } from "@/components/grids/JobsGrid";
 import {
   dehydrate,
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
 import { getAllJobsAction } from "@/utils/actions";
+import { colors, headerVariants } from "@/lib/design-system";
 
+// ✅ Server Component (no 'use client')
 async function AllJobsPage() {
-  // Create a new QueryClient instance for server-side prefetching
   const queryClient = new QueryClient();
 
-  // Prefetch the initial jobs data on the server
-  // This runs before the page is sent to the client
-  // queryKey matches the one used in JobsList component for cache matching
+  // Prefetch jobs data on the server
   await queryClient.prefetchQuery({
-    queryKey: ["jobs", "", "all", 1], // Empty search, 'all' status, page 1
-    queryFn: () => getAllJobsAction({}), // Fetch all jobs (no filters)
+    queryKey: ["jobs", "", "all", 1],
+    queryFn: () => getAllJobsAction({}),
   });
 
-  /**
-   * HydrationBoundary wraps the client components and provides them with
-   * the prefetched data from the server.
-   *
-   * dehydrate() serializes the query cache so it can be sent to the client
-   * The client-side React Query will hydrate this data, making it immediately
-   * available without a loading state.
-   */
+  const result = await getAllJobsAction({});
+
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <SearchForm />
-      <JobsList />
+      <div className="p-6">
+        <div className="mb-6">
+          <h1
+            className={headerVariants.h1}
+            style={{ color: colors.white }} // White text on blue background
+          >
+            Job Applications
+          </h1>
+          <p
+            className="text-sm mt-2"
+            style={{ color: colors.white, opacity: 0.9 }} // White text with slight transparency
+          >
+            {result.count} applications tracked
+          </p>
+        </div>
+
+        {/* JobsGrid is a Client Component */}
+        <JobsGrid jobs={result.jobs} onAddJobClick={() => {}} />
+      </div>
     </HydrationBoundary>
   );
 }

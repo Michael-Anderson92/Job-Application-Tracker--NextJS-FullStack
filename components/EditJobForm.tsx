@@ -58,7 +58,7 @@ function EditJobForm({ jobId }: { jobId: string }) {
       position: data?.position || '',
       company: data?.company || '',
       location: data?.location || '',
-      status: (data?.status as JobStatus) || JobStatus.Pending,
+      status: (data?.status as JobStatus) || JobStatus.Applied,
       mode: (data?.mode as JobMode) || JobMode.FullTime,
     },
   });

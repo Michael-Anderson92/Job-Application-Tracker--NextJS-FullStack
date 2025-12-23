@@ -27,7 +27,7 @@ export default function Home() {
             open-source companion for a smarter job search.
           </p>
           <Button asChild className="mt-4">
-            <Link href="/add-job">Get Started</Link>
+            <Link href="/home">Get Started</Link>
           </Button>
         </div>
         <Image

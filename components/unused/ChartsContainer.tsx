@@ -1,3 +1,11 @@
+/**
+ * ChartsContainer (Client Component)
+ *
+ * Fetches and displays chart data via API route.
+ * Uses 'use client' because it needs:
+ * - useQuery for data fetching
+ * - Recharts library (client-side charting)
+ */
 'use client';
 import {
   BarChart,
@@ -10,11 +18,17 @@ import {
 } from 'recharts';
 
 import { useQuery } from '@tanstack/react-query';
-import { getChartsDataAction } from '@/utils/actions';
+
 function ChartsContainer() {
   const { data, isPending } = useQuery({
     queryKey: ['charts'],
-    queryFn: () => getChartsDataAction(),
+    queryFn: async () => {
+      const response = await fetch('/api/charts');
+      if (!response.ok) {
+        throw new Error('Failed to fetch chart data');
+      }
+      return response.json();
+    },
   });
 
   if (isPending) return <h2 className='text-xl font-medium'>Please wait...</h2>;

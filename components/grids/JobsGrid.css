@@ -1,0 +1,220 @@
+/* ============================================
+   JOBS GRID STYLING - NEOBRUTALIST DESIGN
+   ============================================ */
+
+/* Grid Wrapper - Neobrutalist Container */
+.jobs-grid-wrapper {
+  width: 100%;
+  height: 600px;
+  border: 4px solid #000009;
+  box-shadow: 10px 10px 0px #000009;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+/* Empty State */
+.jobs-grid-empty {
+  width: calc(100% - 16px);
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #FFFB46;
+  border: 4px solid #1BA68A;
+  box-shadow: 8px 8px 0px #113B32;
+  margin-bottom: 16px;
+}
+
+/* ============================================
+   AG GRID CORE OVERRIDES
+   ============================================ */
+
+/* Work Sans Font Enforcement */
+.ag-theme-quartz,
+div[class*="ag-theme"] {
+  font-family: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+
+.ag-theme-quartz .ag-header,
+.ag-theme-quartz .ag-cell,
+.ag-theme-quartz .ag-paging-panel,
+div[class*="ag-theme"] .ag-header,
+div[class*="ag-theme"] .ag-cell,
+div[class*="ag-theme"] .ag-paging-panel {
+  font-family: "Work Sans", sans-serif !important;
+}
+
+/* ============================================
+   YELLOW BACKGROUND - ADD THIS SECTION
+   ============================================ */
+
+/* Force yellow background on all grid elements */
+.ag-theme-quartz,
+div[class*="ag-theme"] {
+  --ag-background-color: #FFFB46 !important;
+  --ag-header-background-color: #FFFB46 !important;
+  --ag-odd-row-background-color: #FFFB46 !important;
+  --ag-even-row-background-color: #FFFB46 !important;
+}
+
+/* Headers */
+.ag-theme-quartz .ag-header,
+.ag-theme-quartz .ag-header-row,
+.ag-theme-quartz .ag-header-cell,
+div[class*="ag-theme"] .ag-header,
+div[class*="ag-theme"] .ag-header-row,
+div[class*="ag-theme"] .ag-header-cell {
+  background-color: #FFFB46 !important;
+  color: #113B32 !important;
+}
+
+/* Rows and Cells */
+.ag-theme-quartz .ag-row,
+.ag-theme-quartz .ag-cell,
+div[class*="ag-theme"] .ag-row,
+div[class*="ag-theme"] .ag-cell {
+  background-color: #FFFB46 !important;
+  color: #113B32 !important;
+}
+
+/* Row backgrounds - both odd and even */
+.ag-theme-quartz .ag-row-odd,
+.ag-theme-quartz .ag-row-even,
+div[class*="ag-theme"] .ag-row-odd,
+div[class*="ag-theme"] .ag-row-even {
+  background-color: #FFFB46 !important;
+}
+
+/* Hover state - lighter yellow */
+.ag-theme-quartz .ag-row-hover,
+div[class*="ag-theme"] .ag-row-hover {
+  background-color: #F0EC3D !important;
+}
+
+/* ============================================
+   ROW BORDERS - THE FIX YOU NEEDED
+   ============================================ */
+
+/* Force row borders using AG Grid's internal classes */
+.ag-theme-quartz .ag-row:not(:last-child)::after,
+div[class*="ag-theme"] .ag-row:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #1BA68A;
+  z-index: 1;
+}
+
+/* ============================================
+   HEADER & ROW SIZING
+   ============================================ */
+
+/* Header Height */
+.ag-theme-quartz .ag-header,
+div[class*="ag-theme"] .ag-header {
+  min-height: 50px !important;
+  height: 50px !important;
+}
+
+.ag-theme-quartz .ag-header-row,
+div[class*="ag-theme"] .ag-header-row {
+  height: 50px !important;
+}
+
+.ag-theme-quartz .ag-header-cell,
+div[class*="ag-theme"] .ag-header-cell {
+  height: 50px !important;
+}
+
+/* Row Height */
+.ag-theme-quartz .ag-row,
+div[class*="ag-theme"] .ag-row {
+  height: 55px !important;
+  min-height: 55px !important;
+}
+
+/* Cell Alignment */
+.ag-theme-quartz .ag-cell,
+div[class*="ag-theme"] .ag-cell {
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 12px !important;
+  text-align: left !important;
+}
+
+.ag-theme-quartz .ag-header-cell,
+div[class*="ag-theme"] .ag-header-cell {
+  display: flex !important;
+  align-items: center !important;
+  padding-left: 12px !important;
+}
+
+/* ============================================
+   INLINE EDITING - CONSISTENT GREEN BORDERS
+   ============================================ */
+
+/* Editing cell container */
+.ag-theme-quartz .ag-cell-inline-editing,
+div[class*="ag-theme"] .ag-cell-inline-editing {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  border: 3px solid #1BA68A !important;
+  border-radius: 0 !important;
+  background-color: #FFFB46 !important;
+}
+
+/* Remove inner borders from inputs/selects */
+.ag-theme-quartz .ag-cell-inline-editing input,
+.ag-theme-quartz .ag-cell-inline-editing select,
+.ag-theme-quartz .ag-cell-inline-editing textarea,
+div[class*="ag-theme"] .ag-cell-inline-editing input,
+div[class*="ag-theme"] .ag-cell-inline-editing select,
+div[class*="ag-theme"] .ag-cell-inline-editing textarea {
+  width: 100% !important;
+  height: 100% !important;
+  background-color: transparent !important;
+  color: #113B32 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  font-family: "Work Sans", sans-serif !important;
+  font-size: 14px !important;
+  padding: 0 12px !important;
+  border-radius: 0 !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+/* Select dropdown specific */
+.ag-theme-quartz .ag-cell-inline-editing select,
+div[class*="ag-theme"] .ag-cell-inline-editing select {
+  cursor: pointer !important;
+  padding: 0 8px !important;
+}
+
+/* Date input specific */
+.ag-theme-quartz .ag-cell-inline-editing input[type="date"],
+div[class*="ag-theme"] .ag-cell-inline-editing input[type="date"] {
+  padding: 0 8px !important;
+}
+
+/* ============================================
+   PAGINATION & OTHER ELEMENTS
+   ============================================ */
+
+.ag-theme-quartz .ag-paging-panel,
+div[class*="ag-theme"] .ag-paging-panel {
+  background-color: #FFFB46 !important;
+  color: #113B32 !important;
+  border-top: 2px solid #1BA68A !important;
+}
+
+.ag-theme-quartz .ag-root-wrapper,
+div[class*="ag-theme"] .ag-root-wrapper {
+  border: none !important;
+}

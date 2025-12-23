@@ -1,0 +1,69 @@
+/*
+ * AG Grid Yellow Theme Overrides - Resumes Grid
+ *
+ * IMPORTANT: These styles force the yellow (#FFFB46) background on ALL grid elements.
+ * The !important flags are necessary to override AG Grid's default theme.
+ */
+
+/* CSS Variables approach (works with both old and new API) */
+.ag-theme-quartz,
+div[class*="ag-theme"] {
+  --ag-background-color: #FFFB46 !important;
+  --ag-header-background-color: #FFFB46 !important;
+  --ag-foreground-color: #113B32 !important;
+  --ag-header-foreground-color: #113B32 !important;
+  --ag-odd-row-background-color: #FFFB46 !important;
+  --ag-even-row-background-color: #FFFB46 !important;
+  --ag-row-hover-color: #F0EC3D !important;
+  --ag-selected-row-background-color: #F0EC3D !important;
+  --ag-border-color: #1BA68A !important;
+  --ag-header-cell-hover-background-color: #F0EC3D !important;
+  --ag-header-cell-moving-background-color: #F0EC3D !important;
+}
+
+/* Direct class targeting (backup method) */
+.ag-theme-quartz .ag-header,
+.ag-theme-quartz .ag-header-row,
+.ag-theme-quartz .ag-header-cell,
+div[class*="ag-theme"] .ag-header,
+div[class*="ag-theme"] .ag-header-row,
+div[class*="ag-theme"] .ag-header-cell {
+  background-color: #FFFB46 !important;
+  color: #113B32 !important;
+}
+
+.ag-theme-quartz .ag-row,
+.ag-theme-quartz .ag-cell,
+div[class*="ag-theme"] .ag-row,
+div[class*="ag-theme"] .ag-cell {
+  background-color: #FFFB46 !important;
+  color: #113B32 !important;
+}
+
+/* Ensure row backgrounds stay yellow */
+.ag-theme-quartz .ag-row-odd,
+.ag-theme-quartz .ag-row-even,
+div[class*="ag-theme"] .ag-row-odd,
+div[class*="ag-theme"] .ag-row-even {
+  background-color: #FFFB46 !important;
+}
+
+/* Hover states */
+.ag-theme-quartz .ag-row-hover,
+div[class*="ag-theme"] .ag-row-hover {
+  background-color: #F0EC3D !important;
+}
+
+/* Root wrapper border */
+.ag-theme-quartz .ag-root-wrapper,
+div[class*="ag-theme"] .ag-root-wrapper {
+  border: 2px solid #1BA68A !important;
+}
+
+/* Pagination controls */
+.ag-theme-quartz .ag-paging-panel,
+div[class*="ag-theme"] .ag-paging-panel {
+  background-color: #FFFB46 !important;
+  color: #113B32 !important;
+  border-top: 1px solid #1BA68A !important;
+}

@@ -6,6 +6,7 @@ import {
 } from '@/components/ui/card';
 
 import { Skeleton } from './ui/skeleton';
+import { colors } from '@/lib/design-system';
 
 type StatsCardsProps = {
   title: string;
@@ -14,10 +15,24 @@ type StatsCardsProps = {
 
 function StatsCards({ title, value }: StatsCardsProps) {
   return (
-    <Card className='bg-muted'>
+    <Card
+      className='border-2'
+      style={{
+        backgroundColor: colors.background,
+        borderColor: colors.border,
+      }}
+    >
       <CardHeader className='flex flex-row justify-between items-center'>
-        <CardTitle className='capitalize'>{title}</CardTitle>
-        <CardDescription className='text-4xl font-extrabold text-primary mt-[0px!important]'>
+        <CardTitle
+          className='capitalize font-semibold'
+          style={{ color: colors.text }} // Dark green text
+        >
+          {title}
+        </CardTitle>
+        <CardDescription
+          className='text-4xl font-extrabold mt-[0px!important]'
+          style={{ color: colors.accent }} // Teal (accent is now teal)
+        >
           {value}
         </CardDescription>
       </CardHeader>

@@ -1,0 +1,102 @@
+.neo-button {
+  --bg-color: #FFFB46;
+  --border-color: #1BA68A;
+  --text-color: #113B32;
+  
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
+  line-height: 1;
+  padding: 1px;
+  transform: translate(-4px, -4px);
+  outline: 2px solid transparent;
+  outline-offset: 5px;
+  border-radius: 0; /* Hard edges for neubrutalism */
+  background-color: var(--border-color);
+  color: var(--text-color);
+  transition:
+    transform 150ms ease,
+    box-shadow 150ms ease;
+  text-align: center;
+  box-shadow:
+    0.5px 0.5px 0 0 var(--border-color),
+    1px 1px 0 0 var(--border-color),
+    1.5px 1.5px 0 0 var(--border-color),
+    2px 2px 0 0 var(--border-color),
+    2.5px 2.5px 0 0 var(--border-color),
+    3px 3px 0 0 var(--border-color),
+    3.5px 3.5px 0 0 var(--border-color),
+    4px 4px 0 0 var(--border-color);
+}
+
+.neo-button:hover {
+  transform: translate(0, 0);
+  box-shadow: none;
+}
+
+.neo-button:active,
+.neo-button:focus-visible {
+  outline-color: var(--border-color);
+}
+
+.neo-button:focus-visible {
+  outline-style: dashed;
+}
+
+.neo-button > div {
+  position: relative;
+  pointer-events: none;
+  background-color: var(--bg-color);
+  border: 3px solid var(--border-color);
+  border-radius: 0; /* Hard edges */
+}
+
+.neo-button > div::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image: radial-gradient(
+      rgb(27 166 138 / 40%) 20%,
+      transparent 20%
+    ),
+    radial-gradient(rgb(27 166 138 / 60%) 20%, transparent 20%);
+  background-position:
+    0 0,
+    4px 4px;
+  background-size: 8px 8px;
+  mix-blend-mode: multiply;
+  animation: dots 0.5s infinite linear;
+}
+
+.neo-button > div > span {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  gap: 0.25rem;
+  color: var(--text-color);
+  font-weight: 700;
+}
+
+
+
+.neo-button:active > div > span {
+  transform: translateY(2px);
+}
+
+@keyframes dots {
+  0% {
+    background-position:
+      0 0,
+      4px 4px;
+  }
+  100% {
+    background-position:
+      8px 0,
+      12px 4px;
+  }
+}

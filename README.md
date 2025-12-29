@@ -257,6 +257,8 @@ I chose this style because:
 
 This project is a heavily modified fork of [Job Application Tracker](https://github.com/arnobt78/Job-Application-Tracker--NextJS-FullStack) by [@arnobt78](https://github.com/arnobt78).
 
+**My Fork:** [github.com/Michael-Anderson92/Job-Application-Tracker--NextJS-FullStack](https://github.com/Michael-Anderson92/Job-Application-Tracker--NextJS-FullStack)
+
 **What I kept:**
 - Authentication scaffolding with Clerk
 - Basic CRUD structure
